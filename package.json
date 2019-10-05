@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "encore dev --watch"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.28.0",
+    "webpack-notifier": "^1.6.0",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  }
+}
