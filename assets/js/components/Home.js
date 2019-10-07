@@ -1,72 +1,57 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import DatePicker from 'react-datepicker';
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props);
+export default function Home () {
+    const [companySymbol, setCompanySymbol] = useState("");
+    const [companySymbolValid, setCompanySymbolValid] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
+    const [startDateValid, setStartDateValid] = useState(true);
+    const [endDate, setEndDate] = useState(new Date());
+    const [endDateValid, setEndDateValid] = useState(true);
+    const [email, setEmail] = useState("");
+    const [emailValid, setEmailValid] = useState(false);
 
-        this.state = {
-            companySymbol: "",
-            companySymbolValid: false,
-            startDate: new Date(),
-            startDateValid: true,
-            endDate: new Date(),
-            endDateValid: true,
-            email: "",
-            emailValid: false
-        };
-
-        this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
-        this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
+    const handleChangeStartDate = (date) => {
+        setStartDate(date);
     }
 
-    handleChangeStartDate(date) {
-        this.setState({
-            startDate: date // ISO String, ex: "2016-11-19T12:00:00.000Z"
-        });
+    const handleChangeEndDate = (date) => {
+        setEndDate(date);
     }
 
-    handleChangeEndDate(date) {
-        this.setState({
-            endDate: date // ISO String, ex: "2016-11-19T12:00:00.000Z"
-        });
-    }
+    return (
+        <div>
+            <h2>Historical Quotes Finder</h2>
 
-    render() {
-        return (
-            <div>
-                <h2>Historical Quotes Finder</h2>
+            <Form noValidate >
+                <Form.Group controlId="formCompanySymbol">
+                    <Form.Label>Company Symbol</Form.Label>
+                    <Form.Control placeholder="Enter company symbol" />
+                </Form.Group>
 
-                <Form noValidate >
-                    <Form.Group controlId="formCompanySymbol">
-                        <Form.Label>Company Symbol</Form.Label>
-                        <Form.Control placeholder="Enter company symbol" />
-                    </Form.Group>
+                <Form.Group controlId="formStartDate">
+                    <Form.Label>Start Date</Form.Label>
+                    <DatePicker id="startDate" selected={startDate} onChange={handleChangeStartDate} />
+                </Form.Group>
 
-                    <Form.Group controlId="formStartDate">
-                        <Form.Label>Start Date</Form.Label>
-                        <DatePicker id="startDate" selected={this.state.startDate} onChange={this.handleChangeStartDate} />
-                    </Form.Group>
+                <Form.Group controlId="formEndDate">
+                    <Form.Label>End Date</Form.Label>
+                    <DatePicker id="endDate" selected={endDate} onChange={handleChangeEndDate} />
+                </Form.Group>
 
-                    <Form.Group controlId="formEndDate">
-                        <Form.Label>End Date</Form.Label>
-                        <DatePicker id="endDate" selected={this.state.endDate} onChange={this.handleChangeEndDate} />
-                    </Form.Group>
+                <Form.Group controlId="formEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email" placeholder="Enter email" />
+                </Form.Group>
 
-                    <Form.Group controlId="formEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
-                    </Form.Group>
-
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>           
-            </div>
-        )
-    };
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>           
+        </div>
+    )
 }
